@@ -1,5 +1,5 @@
 // Smaraṇa offline support: keeps the app and its fonts available without a connection.
-const VERSION = 'smarana-v5';
+const VERSION = 'smarana-v6';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'maskable-192.png', 'maskable-512.png', 'apple-touch-icon.png', 'favicon-48.png'];
 
 self.addEventListener('install', e => {

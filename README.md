@@ -54,7 +54,7 @@ A reading and memorization app, in Devanāgarī only, for 27 Sanskrit texts in t
   - *Line by line*: learn line 1, then line 2, then both together, and so on.
   - *Chain*: the last line of the previous verse is the cue for the next.
   - *Listen*: reads the verse or current line aloud with a device voice, at three speeds.
-- **Recall**: spaced repetition (again, 1, 3, 7, 16, 35 days) with a combined *Today* queue across your texts. Prompts: verse number, previous verse, or first line.
+- **Recall**: three ways to practise. *Daily review* is spaced repetition (again, 1, 3, 7, 16, 35 days) with a combined queue across your texts. *In order* runs through any text or chapter verse by verse, without limit, from any starting verse, and remembers where you stopped. *Random* asks any verse from a text or chapter, without limit and without repeats until every verse has come up. Prompts: verse number, previous verse, or first line.
 - **Quiz**: what comes next, which verse has this number, what number a verse is, fill in the missing line, put four verses in order.
 - **Progress**: totals, day streak, and a strength map for every verse.
 - **Settings**: text size, new verses per day, listening speed, and moving progress between devices with a copy-and-paste code or file.

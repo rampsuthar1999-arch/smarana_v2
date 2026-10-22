@@ -243,6 +243,8 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
 
   <!-- RECALL -->
   <main id="v-recall" class="view col" hidden>
+    <div class="seg" id="rMode"><button data-m="daily">Daily review</button><button data-m="order">In order</button><button data-m="random">Random</button></div>
+    <div id="rDaily" class="col">
     <div class="stats">
       <div class="stat"><b id="sDue">0</b><span>due now</span></div>
       <div class="stat"><b id="sNew">0</b><span>new left today</span></div>
@@ -250,6 +252,17 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
     </div>
     <div class="row">
       <select class="sel" id="rScope" aria-label="Review scope" style="flex:1 1 170px"></select>
+    </div>
+    </div>
+    <div id="rPrac" class="col" hidden>
+      <div class="row">
+        <select class="sel" id="pText" aria-label="Text" style="flex:1 1 170px"></select>
+        <select class="sel" id="pSec" aria-label="Section" style="flex:1 1 170px"></select>
+      </div>
+      <div class="row" id="pStartRow"><span class="label">Start at</span><select class="sel" id="pStart" aria-label="Start at verse" style="flex:1 1 120px"></select></div>
+      <div class="row" style="justify-content:space-between"><span class="hint" id="pInfo"></span><span class="score" id="pTally"></span></div>
+    </div>
+    <div class="row">
       <select class="sel" id="rPrompt" aria-label="Prompt type" style="flex:1 1 150px">
         <option value="mix">Mixed prompts</option><option value="num">Number → verse</option><option value="prev">Previous → next</option><option value="first">First line → rest</option>
       </select>
@@ -527,10 +540,22 @@ function pickRecall(){const texts=scopeTexts();if(!texts.length)return null;
   let opts=['num'];const p=v.t.verses[v.i-1];if(p)opts.push('prev');if(v.lines.length>1)opts.push('first');
   let mode=ui.rPrompt==='mix'?opts[Math.random()*opts.length|0]:ui.rPrompt;if(!opts.includes(mode))mode='num';
   return {v,isNew,mode,shown:false}}
+function promptHTML(r){const v=r.v,p=v.t.verses[v.i-1];let h='';
+  if(r.mode==='num')h+=`<div class="prompt-q">Recite</div><div class="prompt-big">${numDev(v)}</div>`;
+  else if(r.mode==='prev')h+=`<div class="prompt-q">What follows ${numDev(p)}?</div><div class="prompt-txt" style="color:var(--muted)">${p.lines.map(esc).join('<br>')}</div>`;
+  else h+=`<div class="prompt-q">Continue from the first line of ${numDev(v)}</div><div class="prompt-txt">${esc(v.lines[0])}</div>`;
+  return h}
+function answerHTML(v){return `<div class="answer">${v.sp?`<div class="speaker">${esc(v.sp)}</div>`:''}${verseHTML(v)}${extrasHTML(v)}</div>`}
+function promptMode(v,inOrder){let opts=['num'];const p=v.t.verses[v.i-1];if(p)opts.push('prev');if(v.lines.length>1)opts.push('first');
+  let m=ui.rPrompt==='mix'?(inOrder&&p?'prev':opts[Math.random()*opts.length|0]):ui.rPrompt;return opts.includes(m)?m:'num'}
 function rRecall(){
+  ui.rMode=ui.rMode||'daily';
+  document.querySelectorAll('#rMode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===ui.rMode));
+  $('rDaily').hidden=ui.rMode!=='daily';$('rPrac').hidden=ui.rMode==='daily';
+  $('rPrompt').value=ui.rPrompt;
+  if(ui.rMode!=='daily'){rPractice();return}
   const scopeOpts=`<option value="all">All texts I’m studying (${study.length})</option>`;
   fillTextSelect($('rScope'),ui.rScope,scopeOpts);if(!$('rScope').value){ui.rScope='all';$('rScope').value='all'}
-  $('rPrompt').value=ui.rPrompt;
   const texts=scopeTexts();
   $('sDue').textContent=dueCards(texts).length;
   $('sNew').textContent=texts.reduce((a,t)=>a+Math.min(newLeft(t),t.verses.filter(v=>!cards[v.key]).length),0);
@@ -539,11 +564,8 @@ function rRecall(){
   if(!texts.length){el.innerHTML=`<div class="done"><div class="om">ॐ</div><p>No texts in your daily practice yet.</p><button class="btn primary" id="toLib">Choose texts in the Library</button></div>`;$('toLib').onclick=()=>show('library');return}
   if(!rc){el.innerHTML=`<div class="done"><div class="om">शान्तिः</div><p>Nothing more due right now. Today’s new verses are done.</p><button class="btn" id="more">Add 3 more new verses</button></div>`;
     $('more').onclick=()=>{texts.forEach(t=>day.nw[t.id]=Math.max(0,(day.nw[t.id]||0)-3));saveAll();rc=null;rRecall()};return}
-  const v=rc.v,p=v.t.verses[v.i-1];let h=`<div class="ref"><span class="where">${v.t.name}${rc.isNew?' · new':''}</span><span>${where(v)}</span></div>`;
-  if(rc.mode==='num')h+=`<div class="prompt-q">Recite</div><div class="prompt-big">${numDev(v)}</div>`;
-  else if(rc.mode==='prev')h+=`<div class="prompt-q">What follows ${numDev(p)}?</div><div class="prompt-txt" style="color:var(--muted)">${p.lines.map(esc).join('<br>')}</div>`;
-  else h+=`<div class="prompt-q">Continue from the first line of ${numDev(v)}</div><div class="prompt-txt">${esc(v.lines[0])}</div>`;
-  if(rc.shown)h+=`<div class="answer">${v.sp?`<div class="speaker">${esc(v.sp)}</div>`:''}${verseHTML(v)}${extrasHTML(v)}</div>
+  const v=rc.v;let h=`<div class="ref"><span class="where">${v.t.name}${rc.isNew?' · new':''}</span><span>${where(v)}</span></div>`+promptHTML(rc);
+  if(rc.shown)h+=`${answerHTML(v)}
     <div class="grades"><button class="btn g0" data-g="0">Again<small>in a minute</small></button>
     <button class="btn g1" data-g="1">Good<small>${nextLabel(v,1)}</small></button><button class="btn g2" data-g="2">Easy<small>${nextLabel(v,2)}</small></button></div>
     <div class="row"><button class="btn sm" id="rOpen">Open in Learn</button><button class="btn sm" id="rSay">Listen</button></div>`;
@@ -560,7 +582,54 @@ function grade(g){const v=rc.v,b=nbox(v,g);
   const td=TODAY();if(streak.last!==td){streak.n=streak.last===dstr(Date.now()-DAY)?streak.n+1:1;streak.last=td}
   saveAll();rc=null;render()}
 $('rScope').onchange=e=>{ui.rScope=e.target.value;saveUI();rc=null;rRecall()};
-$('rPrompt').onchange=e=>{ui.rPrompt=e.target.value;saveUI();rc=null;rRecall()};
+$('rPrompt').onchange=e=>{ui.rPrompt=e.target.value;saveUI();rc=null;if(pr)pr.mode=promptMode(pr.v,ui.rMode==='order');rRecall()};
+/* ---------- PRACTICE: unlimited recall, in order or at random ---------- */
+let pr=null,pTally={n:0,k:0},bag={key:'',list:[]};
+const pT=()=>T[ui.pText]||T[ui.text]||LIB[0];
+function pScope(){const t=pT();const k=ui.pSec===''||ui.pSec==null?-1:+ui.pSec;
+  return k<0||!t.sec[k]?t.verses:t.verses.filter(v=>t.secOf(v.i)===k)}
+const pKey=()=>pT().id+'|'+(ui.pSec??'');
+function pickPractice(){const list=pScope();if(!list.length)return null;let v;
+  if(ui.rMode==='order'){ui.ordPos=ui.ordPos||{};let i=ui.ordPos[pKey()];
+    let at=list.findIndex(x=>x.i===i);if(at<0)at=0;v=list[at]}
+  else{if(bag.key!==pKey()||!bag.list.length){bag={key:pKey(),list:shuffle(list.map(x=>x.i))};
+      if(pr&&bag.list.length>1&&bag.list[bag.list.length-1]===pr.v.i)bag.list.unshift(bag.list.pop())}
+    v=pT().verses[bag.list.pop()]}
+  return {v,mode:promptMode(v,ui.rMode==='order'),shown:false}}
+function advance(step){const list=pScope();ui.ordPos=ui.ordPos||{};const at=list.findIndex(x=>x.i===pr.v.i);
+  let n=at+step;let wrapped=false;if(n>=list.length){n=0;wrapped=true}if(n<0)n=0;
+  ui.ordPos[pKey()]=list[n].i;saveUI();pr=pickPractice();if(wrapped)pr.wrapped=true}
+function rPractice(){
+  const t=pT();ui.pText=t.id;fillTextSelect($('pText'),t.id);
+  $('pSec').hidden=!t.sec.length;
+  $('pSec').innerHTML=`<option value="">Whole text (${t.verses.length})</option>`+t.sec.map((s,k)=>`<option value="${k}">${esc(s[0])}</option>`).join('');
+  $('pSec').value=ui.pSec??'';if($('pSec').value!==String(ui.pSec??'')){ui.pSec='';$('pSec').value=''}
+  const list=pScope(),ord=ui.rMode==='order';
+  if(!pr||!list.includes(pr.v))pr=pickPractice();
+  $('pStartRow').hidden=!ord;
+  if(ord){$('pStart').innerHTML=list.map(v=>`<option value="${v.i}">${numDev(v)}</option>`).join('');$('pStart').value=String(pr.v.i)}
+  const pos=list.indexOf(pr.v)+1;
+  $('pInfo').textContent=ord?`${pos} of ${list.length} in order`:`Random from ${list.length} ${unitOf(t)} · no repeats until all have come up`;
+  $('pTally').textContent=pTally.n?`${pTally.k} / ${pTally.n} known this session`:'';
+  const v=pr.v;let h=`<div class="ref"><span class="where">${t.name}</span><span>${where(v)}</span></div>`;
+  if(pr.wrapped)h+=`<p class="hint" style="color:var(--tulsi)">You reached the end and started again from the beginning.</p>`;
+  h+=promptHTML(pr);
+  if(pr.shown)h+=answerHTML(v)+`<div class="grades" style="grid-template-columns:1fr 1fr"><button class="btn g0" data-k="0">Missed it</button><button class="btn g1" data-k="1">Knew it</button></div>
+    <div class="row">${ord?'<button class="btn sm" id="pBack">← Previous</button>':''}<button class="btn sm" id="rOpen">Open in Learn</button><button class="btn sm" id="rSay">Listen</button></div>`;
+  else h+=`<div class="row"><button class="btn primary grow" id="rShow">Show answer</button>${ord?'<button class="btn" id="pSkip">Skip →</button>':''}</div>`;
+  $('rCard').innerHTML=h;
+  if(!pr.shown){$('rShow').onclick=()=>{pr.shown=true;rPractice()};if(ord)$('pSkip').onclick=()=>{advance(1);rPractice()}}
+  else{$('rCard').querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{pTally.n++;if(b.dataset.k==='1')pTally.k++;
+      const td=TODAY();if(streak.last!==td){streak.n=streak.last===dstr(Date.now()-DAY)?streak.n+1:1;streak.last=td;saveAll();updateStreak()}
+      if(ord)advance(1);else pr=pickPractice();rPractice()});
+    $('rOpen').onclick=()=>openVerse(v);$('rSay').onclick=()=>speak(v.lines.join(' '));
+    if(ord)$('pBack').onclick=()=>{advance(-1);rPractice()}}
+}
+$('rMode').onclick=e=>{const b=e.target.closest('button');if(!b)return;ui.rMode=b.dataset.m;saveUI();pr=null;rRecall()};
+$('pText').onchange=e=>{ui.pText=e.target.value;ui.pSec='';saveUI();pr=null;pTally={n:0,k:0};rRecall()};
+$('pSec').onchange=e=>{ui.pSec=e.target.value;saveUI();pr=null;rRecall()};
+$('pStart').onchange=e=>{ui.ordPos=ui.ordPos||{};ui.ordPos[pKey()]=+e.target.value;saveUI();pr=null;rRecall()};
+
 
 /* ---------- QUIZ ---------- */
 let qz=null,qs={r:0,t:0};
