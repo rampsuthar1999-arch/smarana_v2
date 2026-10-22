@@ -56,6 +56,7 @@ A reading and memorization app, in Devanāgarī only, for 27 Sanskrit texts in t
   - *Listen*: reads the verse or current line aloud with a device voice, at three speeds.
 - **Recall**: three ways to practise. *Daily review* is spaced repetition (again, 1, 3, 7, 16, 35 days) with a combined queue across your texts. *In order* runs through any text or chapter verse by verse, without limit, from any starting verse, and remembers where you stopped. *Random* asks any verse from a text or chapter, without limit and without repeats until every verse has come up. Prompts: verse number, previous verse, or first line.
 - **Quiz**: what comes next, which verse has this number, what number a verse is, fill in the missing line, put four verses in order.
+- **व्याकरण**: the button in the header opens संस्कृत व्याकरणवीथिः (Class 9–10 Sanskrit grammar: शब्दरूप, धातुरूप, सन्धि-यन्त्र, समास, कारक, प्रत्यय, परीक्षा) inside the installed app. *← स्मरण* at the bottom right returns to Smaraṇa. It works offline too (`vyakarana.html`).
 - **Progress**: totals, day streak, and a strength map for every verse.
 - **Settings**: text size, new verses per day, listening speed, and moving progress between devices with a copy-and-paste code or file.
 
