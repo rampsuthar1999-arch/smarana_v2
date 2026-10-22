@@ -1,0 +1,218 @@
+[
+ {
+  "id": "bg",
+  "group": "gita",
+  "name": "Bhagavad Gītā",
+  "dev": "श्रीमद्भगवद्गीता",
+  "source": "Vyāsa · Mahābhārata",
+  "count": 701
+ },
+ {
+  "id": "yoga",
+  "group": "stotra",
+  "name": "Yoga Sūtra",
+  "dev": "पातञ्जलयोगसूत्राणि",
+  "source": "Patañjali",
+  "count": 195
+ },
+ {
+  "id": "narada",
+  "group": "stotra",
+  "name": "Nārada Bhakti Sūtra",
+  "dev": "नारदभक्तिसूत्राणि",
+  "source": "Nārada",
+  "count": 84
+ },
+ {
+  "id": "atma",
+  "group": "stotra",
+  "name": "Ātmabodha",
+  "dev": "आत्मबोधः",
+  "source": "Ādi Śaṅkarācārya",
+  "count": 68
+ },
+ {
+  "id": "aparoksha",
+  "group": "stotra",
+  "name": "Aparokṣānubhūti",
+  "dev": "अपरोक्षानुभूतिः",
+  "source": "Ādi Śaṅkarācārya",
+  "count": 144
+ },
+ {
+  "id": "viveka",
+  "group": "stotra",
+  "name": "Vivekacūḍāmaṇi",
+  "dev": "विवेकचूडामणिः",
+  "source": "Ādi Śaṅkarācārya",
+  "count": 580
+ },
+ {
+  "id": "bhaja",
+  "group": "stotra",
+  "name": "Bhaja Govindam",
+  "dev": "भज गोविन्दम्",
+  "source": "Ādi Śaṅkarācārya",
+  "count": 34
+ },
+ {
+  "id": "dakshina",
+  "group": "stotra",
+  "name": "Dakṣiṇāmūrti Stotram",
+  "dev": "दक्षिणामूर्तिस्तोत्रम्",
+  "source": "Ādi Śaṅkarācārya",
+  "count": 10
+ },
+ {
+  "id": "brahma",
+  "group": "stotra",
+  "name": "Brahmajñānāvalīmālā",
+  "dev": "ब्रह्मज्ञानावलीमाला",
+  "source": "Ādi Śaṅkarācārya",
+  "count": 21
+ },
+ {
+  "id": "praudha",
+  "group": "stotra",
+  "name": "Prauḍhānubhūti",
+  "dev": "प्रौढानुभूतिः",
+  "source": "Ādi Śaṅkarācārya",
+  "count": 17
+ },
+ {
+  "id": "prabodha",
+  "group": "stotra",
+  "name": "Prabodhasudhākara",
+  "dev": "प्रबोधसुधाकरः",
+  "source": "Ādi Śaṅkarācārya",
+  "count": 257
+ },
+ {
+  "id": "drig",
+  "group": "stotra",
+  "name": "Dṛg-Dṛśya-Viveka",
+  "dev": "दृग्दृश्यविवेकः",
+  "source": "Bhāratī Tīrtha",
+  "count": 46
+ },
+ {
+  "id": "bhikshu",
+  "group": "stotra",
+  "name": "Bhikṣu Gītā",
+  "dev": "भिक्षुगीता",
+  "source": "Bhāgavata 11.23",
+  "count": 20
+ },
+ {
+  "id": "bhramara",
+  "group": "stotra",
+  "name": "Bhramara Gītā",
+  "dev": "भ्रमरगीतम्",
+  "source": "Bhāgavata 10.47",
+  "count": 69
+ },
+ {
+  "id": "gopi",
+  "group": "stotra",
+  "name": "Gopī Gītā",
+  "dev": "गोपीगीतम्",
+  "source": "Bhāgavata 10.31",
+  "count": 19
+ },
+ {
+  "id": "gita",
+  "group": "stotra",
+  "name": "Gītagovindam",
+  "dev": "गीतगोविन्दम्",
+  "source": "Jayadeva",
+  "count": 294
+ },
+ {
+  "id": "isha",
+  "group": "up",
+  "name": "Īśa Upaniṣad",
+  "dev": "ईशोपनिषत्",
+  "source": "Śukla Yajurveda",
+  "count": 19
+ },
+ {
+  "id": "kena",
+  "group": "up",
+  "name": "Kena Upaniṣad",
+  "dev": "केनोपनिषत्",
+  "source": "Sāmaveda",
+  "count": 36
+ },
+ {
+  "id": "katha",
+  "group": "up",
+  "name": "Kaṭha Upaniṣad",
+  "dev": "कठोपनिषत्",
+  "source": "Kṛṣṇa Yajurveda",
+  "count": 121
+ },
+ {
+  "id": "prashna",
+  "group": "up",
+  "name": "Praśna Upaniṣad",
+  "dev": "प्रश्नोपनिषत्",
+  "source": "Atharvaveda",
+  "count": 68
+ },
+ {
+  "id": "mundaka",
+  "group": "up",
+  "name": "Muṇḍaka Upaniṣad",
+  "dev": "मुण्डकोपनिषत्",
+  "source": "Atharvaveda",
+  "count": 65
+ },
+ {
+  "id": "mandukya",
+  "group": "up",
+  "name": "Māṇḍūkya Upaniṣad",
+  "dev": "माण्डूक्योपनिषत्",
+  "source": "Atharvaveda",
+  "count": 13
+ },
+ {
+  "id": "karika",
+  "group": "up",
+  "name": "Māṇḍūkya Kārikā",
+  "dev": "गौडपादीयकारिका",
+  "source": "Gauḍapāda",
+  "count": 228
+ },
+ {
+  "id": "taittiriya",
+  "group": "up",
+  "name": "Taittirīya Upaniṣad",
+  "dev": "तैत्तिरीयोपनिषत्",
+  "source": "Kṛṣṇa Yajurveda",
+  "count": 53
+ },
+ {
+  "id": "aitareya",
+  "group": "up",
+  "name": "Aitareya Upaniṣad",
+  "dev": "ऐतरेयोपनिषत्",
+  "source": "Ṛgveda",
+  "count": 34
+ },
+ {
+  "id": "shveta",
+  "group": "up",
+  "name": "Śvetāśvatara Upaniṣad",
+  "dev": "श्वेताश्वतरोपनिषत्",
+  "source": "Kṛṣṇa Yajurveda",
+  "count": 114
+ },
+ {
+  "id": "purusha",
+  "group": "up",
+  "name": "Puruṣa Sūkta",
+  "dev": "पुरुषसूक्तम्",
+  "source": "Ṛgveda · Taittirīya Āraṇyaka",
+  "count": 25
+ }
+]
