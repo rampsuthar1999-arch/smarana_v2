@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "स्मरण ग्रन्थालयः · Smaraṇa",
+  "short_name": "स्मरण",
+  "description": "Read and memorize the Bhagavad Gītā, Upaniṣads, stotras and prakaraṇas.",
+  "lang": "sa",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ECEFEA",
+  "theme_color": "#ECEFEA",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
